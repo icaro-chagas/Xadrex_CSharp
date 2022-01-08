@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace xadrez_console.Chessboard
+﻿namespace xadrez_console.Chessboard
 {
     class Position
     {
