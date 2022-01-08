@@ -8,20 +8,12 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            try
-            {
-                Board board = new Board(8, 8);
+            ChessPosition cPos = new ChessPosition('c', 7);
 
-                board.PlacePiece(new Rook(board, Color.Black), new Position(0, 0));
-                board.PlacePiece(new Rook(board, Color.Black), new Position(1, 9));
-                board.PlacePiece(new King(board, Color.Black), new Position(0, 2));
 
-                Screen.PrintSreen(board);
-            }
-            catch (BoardException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Console.WriteLine(cPos);
+
+            Console.WriteLine(cPos.ToPositon());
         }
     }
 }
