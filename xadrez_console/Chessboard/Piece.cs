@@ -12,8 +12,7 @@
             Position = null;
             Board = board;
             Color = color;
-            NumberOfMoves = 0;
-            
+            NumberOfMoves = 0; 
         }
     }
 }
