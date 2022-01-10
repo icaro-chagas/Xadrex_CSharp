@@ -1,6 +1,6 @@
 ﻿namespace xadrez_console.Chessboard
 {
-    class Piece
+    abstract class Piece
     {
         public Position Position { get; set; }
         public Board Board { get; set; }
@@ -19,5 +19,8 @@
         {
             NumberOfMoves++;
         }
+
+        public abstract bool[,] PossibleMoves();
+
     }
 }
