@@ -14,25 +14,38 @@ namespace xadrez_console
 
                 while (!match.Finished)
                 {
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board);
-                    Console.WriteLine();
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board);
+                        Console.WriteLine();
+                        Console.WriteLine("Turn: " + match.Turn);
+                        Console.WriteLine("Current Player: " + match.CurrentPlayer);
 
-                    Console.Write("Source: ");
-                    Position source = Screen.ReadChessPosition().ToPositon();
+                        Console.WriteLine();
+                        Console.Write("Source: ");
+                        Position source = Screen.ReadChessPosition().ToPositon();
+                        match.ValidadeSourcePosition(source);
 
-                    bool[,] possiblePositions = match.Board.Piece(source).PossibleMoves();
+                        bool[,] possiblePositions = match.Board.Piece(source).PossibleMoves();
 
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board, possiblePositions);
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board, possiblePositions);
 
-                    Console.WriteLine();
-                    Console.Write("Target: ");
-                    Position target = Screen.ReadChessPosition().ToPositon();
+                        Console.WriteLine();
+                        Console.Write("Target: ");
+                        Position target = Screen.ReadChessPosition().ToPositon();
+                        match.ValidadeTargetPosition(source, target);
 
-                    
-                    match.PerformMovement(source, target);
 
+                        match.UpdateMatch(source, target);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message + "\n");
+                        Console.Write("\nPress Enter to continue! ");
+                        Console.ReadLine();
+                    }
                 }
             }
             catch (BoardException e)

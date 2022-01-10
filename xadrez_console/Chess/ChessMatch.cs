@@ -10,27 +10,74 @@ namespace xadrez_console.Chess
         private const int InitialTurn = 1;
 
         public Board Board { get; private set; }
-        private int _turn;
-        private Color _currentPlayer;
+        public int Turn { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool Finished { get; private set; }
 
         public ChessMatch()
         {
             Board = new Board(NumberOfRows, NumberOfColums);
-            _turn = InitialTurn;
-            _currentPlayer = Color.White;
+            Turn = InitialTurn;
+            CurrentPlayer = Color.White;
             Finished = false;
 
             PlacePieces();
         }
          
-        public void PerformMovement(Position source, Position target)
+        public void PerformMove(Position source, Position target)
         {
             Piece piece = Board.RemovePiece(source);
             piece.IncreaseNumberOfMoves();
 
             Piece capturedPiece = Board.RemovePiece(target);
             Board.PlacePiece(piece, target);
+        }
+
+        public void UpdateMatch(Position source, Position target)
+        {
+            PerformMove(source, target);
+            Turn++;
+
+            ChangePlayer();
+
+        }
+
+        public void ValidadeSourcePosition(Position position)
+        {
+            if (Board.Piece(position) == null)
+            {
+                throw new BoardException("There is no piece in the chosen source position!");
+            }
+
+            if (CurrentPlayer != Board.Piece(position).Color)
+            {
+                throw new BoardException("The chosen source piece is not yours!");
+            }
+
+            if (!Board.Piece(position).HasPossibleMoves())
+            {
+                throw new BoardException("There are no possible moves for the chosen source piece!");
+            }
+        }
+
+        public void ValidadeTargetPosition(Position source, Position target)
+        {
+            if (!Board.Piece(source).CanMoveTo(target))
+            {
+                throw new BoardException("Invalid target position!");
+            }
+        }
+
+        public void ChangePlayer()
+        {
+            if (CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
         }
 
         private void PlacePieces()
