@@ -80,9 +80,15 @@ namespace xadrez_console.Chess
                 Check = false;
             }
 
-            Turn++;
-
-            ChangePlayer();
+            if (TestCheckmate(GetOpposingColor(CurrentPlayer)))
+            {
+                Finished = true;
+            }
+            else
+            { 
+                Turn++;
+                ChangePlayer();
+            }
 
         }
 
@@ -207,6 +213,39 @@ namespace xadrez_console.Chess
             return test;
         }
 
+        public bool TestCheckmate(Color color)
+        {
+            if (!TestCheckByColor(color))
+            {
+                return false;
+            }
+
+            foreach (Piece p in GetPiecesInGameByColor(color))
+            {
+                bool[,] mat = p.PossibleMoves();
+                for (int i = 0; i < Board.Rows; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position source = p.Position;
+                            Position target = new Position(i, j);
+                            Piece capturedPiece = PerformMove(source, target);
+                            bool testCheck = TestCheckByColor(color);
+                            UndoMove(source, target, capturedPiece);
+
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void PlaceNewPiece(char column, int row, Piece piece)
         {
             Board.PlacePiece(piece, new ChessPosition(column, row).ToPositon());
@@ -215,7 +254,7 @@ namespace xadrez_console.Chess
 
         private void PlacePieces()
         {
-            PlaceNewPiece('c', 1, new Rook(Board, Color.White));
+            /*PlaceNewPiece('c', 1, new Rook(Board, Color.White));
             PlaceNewPiece('c', 2, new Rook(Board, Color.White));
             PlaceNewPiece('d', 2, new Rook(Board, Color.White));
             PlaceNewPiece('e', 2, new Rook(Board, Color.White));
@@ -227,8 +266,14 @@ namespace xadrez_console.Chess
             PlaceNewPiece('d', 7, new Rook(Board, Color.Black));
             PlaceNewPiece('e', 7, new Rook(Board, Color.Black));
             PlaceNewPiece('e', 8, new Rook(Board, Color.Black));
-            PlaceNewPiece('d', 8, new King(Board, Color.Black));
+            PlaceNewPiece('d', 8, new King(Board, Color.Black));*/
 
+            PlaceNewPiece('c', 1, new Rook(Board, Color.White));
+            PlaceNewPiece('d', 1, new King(Board, Color.White));
+            PlaceNewPiece('h', 7, new Rook(Board, Color.White));
+
+            PlaceNewPiece('a', 8, new King(Board, Color.Black));
+            PlaceNewPiece('b', 8, new Rook(Board, Color.Black));
         }
 
 

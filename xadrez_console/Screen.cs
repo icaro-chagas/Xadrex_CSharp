@@ -16,11 +16,20 @@ namespace xadrez_console
             Console.WriteLine();
 
             Console.WriteLine("Turn: " + chessMatch.Turn);
-            Console.WriteLine("Current Player: " + chessMatch.CurrentPlayer);
 
-            if (chessMatch.Check)
+            if (!chessMatch.Finished)
             {
-                Console.WriteLine("CHECK!");
+                Console.WriteLine("Current Player: " + chessMatch.CurrentPlayer);
+
+                if (chessMatch.Check)
+                {
+                    Console.WriteLine("CHECK!");
+                }
+            }
+            else 
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("Winner: " + chessMatch.CurrentPlayer);
             }
         }
 
