@@ -43,6 +43,11 @@
             NumberOfMoves++;
         }
 
+        public void DecreaseNumberOfMoves()
+        {
+            NumberOfMoves--;
+        }
+
         public abstract bool[,] PossibleMoves();
 
     }

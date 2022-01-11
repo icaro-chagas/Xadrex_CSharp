@@ -17,6 +17,11 @@ namespace xadrez_console
 
             Console.WriteLine("Turn: " + chessMatch.Turn);
             Console.WriteLine("Current Player: " + chessMatch.CurrentPlayer);
+
+            if (chessMatch.Check)
+            {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void PrintCapturedPieces(ChessMatch chessMatch)
