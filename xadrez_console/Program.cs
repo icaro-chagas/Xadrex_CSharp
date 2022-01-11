@@ -17,10 +17,7 @@ namespace xadrez_console
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(match.Board);
-                        Console.WriteLine();
-                        Console.WriteLine("Turn: " + match.Turn);
-                        Console.WriteLine("Current Player: " + match.CurrentPlayer);
+                        Screen.PrintMatch(match);
 
                         Console.WriteLine();
                         Console.Write("Source: ");
