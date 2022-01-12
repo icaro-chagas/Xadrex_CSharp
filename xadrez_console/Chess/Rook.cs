@@ -8,13 +8,6 @@ namespace xadrez_console.Chess
         {
         }
 
-        /*private bool IsValidMove(Position position)
-        {
-            Piece piece = Board.Piece(position);
-
-            return piece == null || piece.Color != Color;
-        }*/
-
         public override bool[,] PossibleMoves()
         {
 

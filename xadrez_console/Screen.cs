@@ -114,12 +114,40 @@ namespace xadrez_console
         }
 
             public static ChessPosition ReadChessPosition()
-        {
-            string s = Console.ReadLine();
+        { 
+            HashSet<char> validCharacters = new HashSet<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+            HashSet<char> validNumbers = new HashSet<char>() { '1', '2', '3', '4', '5', '6', '7', '8' };
+
+
+            string s = Console.ReadLine().Trim();
+            if (s.Length < 2)
+            {
+                throw new BoardException("Invalid format for piece source!");
+            }
+            else if (!validCharacters.Contains(s[0]) || !validNumbers.Contains(s[1]))
+            {
+                throw new BoardException("Invalid format for piece source!");
+            }
+
             char column = s[0];
             int row = int.Parse(s[1] + "");
 
             return new ChessPosition(column, row);
+        }
+
+        private HashSet<char> GetValidCharactersForReading()
+        {
+            HashSet<char> validCharacters = new HashSet<char>();
+            validCharacters.Add('a');
+            validCharacters.Add('b');
+            validCharacters.Add('c');
+            validCharacters.Add('d');
+            validCharacters.Add('e');
+            validCharacters.Add('f');
+            validCharacters.Add('g');
+            validCharacters.Add('h');
+
+            return validCharacters;
         }
 
         public static void PrintPiece(Piece piece)
