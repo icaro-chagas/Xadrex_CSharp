@@ -17,7 +17,7 @@ namespace xadrez_console.Chess
 
         public bool HasEnemy(Position position)
         {
-            Piece piece = Board.Piece(Position);
+            Piece piece = Board.Piece(position);
 
             return piece != null && piece.Color != Color;
         }
