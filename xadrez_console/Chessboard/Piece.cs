@@ -15,6 +15,13 @@
             NumberOfMoves = 0; 
         }
 
+        protected bool IsValidMove(Position position)
+        {
+            Piece piece = Board.Piece(position);
+
+            return piece == null || piece.Color != Color;
+        }
+
         public bool HasPossibleMoves()
         {
             bool[,] mat = PossibleMoves();

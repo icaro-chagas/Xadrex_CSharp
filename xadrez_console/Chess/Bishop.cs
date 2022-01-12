@@ -2,9 +2,9 @@
 
 namespace xadrez_console.Chess
 {
-    class Rook : Piece
+    class Bishop : Piece
     {
-        public Rook(Board board, Color color) : base(board, color)
+        public Bishop(Board board, Color color) : base(board, color)
         {
         }
 
@@ -17,25 +17,12 @@ namespace xadrez_console.Chess
 
         public override bool[,] PossibleMoves()
         {
-
             bool[,] mat = new bool[Board.Rows, Board.Columns];
 
             Position auxPosition = new Position(0, 0);
 
-            // Above
-            auxPosition.SetValues(Position.Row - 1, Position.Column); 
-            while(Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition)) 
-            {
-                mat[auxPosition.Row, auxPosition.Column] = true;
-                if (Board.Piece(auxPosition) != null && Board.Piece(auxPosition).Color != Color)
-                {
-                    break;
-                }
-                auxPosition.Row--;
-            }
-
-            // Below
-            auxPosition.SetValues(Position.Row + 1, Position.Column);
+            // Northweast
+            auxPosition.SetValues(Position.Row - 1, Position.Column - 1);  
             while (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
@@ -43,11 +30,11 @@ namespace xadrez_console.Chess
                 {
                     break;
                 }
-                auxPosition.Row++;
+                auxPosition.SetValues(auxPosition.Row - 1, auxPosition.Column - 1);
             }
 
-            // Right
-            auxPosition.SetValues(Position.Row, Position.Column + 1);
+            // Northeast
+            auxPosition.SetValues(Position.Row - 1, Position.Column + 1);
             while (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
@@ -55,11 +42,11 @@ namespace xadrez_console.Chess
                 {
                     break;
                 }
-                auxPosition.Column++;
+                auxPosition.SetValues(auxPosition.Row - 1, auxPosition.Column + 1);
             }
 
-            // Left
-            auxPosition.SetValues(Position.Row, Position.Column - 1);
+            // Southeast
+            auxPosition.SetValues(Position.Row + 1, Position.Column + 1);
             while (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
@@ -67,7 +54,19 @@ namespace xadrez_console.Chess
                 {
                     break;
                 }
-                auxPosition.Column--;
+                auxPosition.SetValues(auxPosition.Row + 1, auxPosition.Column + 1);
+            }
+
+            // Southwest
+            auxPosition.SetValues(Position.Row + 1, Position.Column - 1);
+            while (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
+            {
+                mat[auxPosition.Row, auxPosition.Column] = true;
+                if (Board.Piece(auxPosition) != null && Board.Piece(auxPosition).Color != Color)
+                {
+                    break;
+                }
+                auxPosition.SetValues(auxPosition.Row + 1, auxPosition.Column - 1);
             }
 
             return mat;
@@ -75,8 +74,7 @@ namespace xadrez_console.Chess
 
         public override string ToString()
         {
-            return "R";
+            return "B";
         }
-
     }
 }

@@ -2,9 +2,9 @@
 
 namespace xadrez_console.Chess
 {
-    class King : Piece
+    class Knight : Piece
     {
-        public King(Board board, Color color) : base(board, color)
+        public Knight(Board board, Color color) : base(board, color)
         {
         }
 
@@ -20,69 +20,78 @@ namespace xadrez_console.Chess
             bool[,] mat = new bool[Board.Rows, Board.Columns];
 
             Position auxPosition = new Position(0, 0);
+            
+            /*
+             Up: U
+             Right: R
+             Left: L
+             Down: D
+            */
 
-            // Above
-            auxPosition.SetValues(Position.Row - 1, Position.Column);
+            // U-L-L
+            auxPosition.SetValues(Position.Row - 1, Position.Column - 2);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Northeast
-            auxPosition.SetValues(Position.Row - 1, Position.Column + 1);
+            // U-U-L
+            auxPosition.SetValues(Position.Row - 2, Position.Column - 1);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Right
-            auxPosition.SetValues(Position.Row, Position.Column + 1);
+            // U-U-R
+            auxPosition.SetValues(Position.Row - 2, Position.Column + 1);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Southeast
-            auxPosition.SetValues(Position.Row + 1, Position.Column + 1);
+            // U-R-R
+            auxPosition.SetValues(Position.Row - 1, Position.Column + 2);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Below
-            auxPosition.SetValues(Position.Row + 1, Position.Column);
+            // D-R-R
+            auxPosition.SetValues(Position.Row + 1, Position.Column + 2);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Southwest
-            auxPosition.SetValues(Position.Row + 1, Position.Column - 1);
+            // D-D-R
+            auxPosition.SetValues(Position.Row + 2, Position.Column + 1);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Left
-            auxPosition.SetValues(Position.Row, Position.Column - 1);
+            // D-D-L
+            auxPosition.SetValues(Position.Row + 2, Position.Column - 1);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
 
-            // Northwest
-            auxPosition.SetValues(Position.Row - 1, Position.Column - 1);
+            // D-L-L
+            auxPosition.SetValues(Position.Row + 1, Position.Column - 2);
             if (Board.IsValidPosition(auxPosition) && IsValidMove(auxPosition))
             {
                 mat[auxPosition.Row, auxPosition.Column] = true;
             }
+
+
 
             return mat;
         }
 
         public override string ToString()
         {
-            return "K";
+            return "N";
         }
     }
 }
